@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+   <div th:replace="fragments/fwd-header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/fwd-header :: header"/>
+<div class="fixed-header navbar white hidden-xs"></div>
+<div class="main-content homepage">
+      <div class="section-1">
+        <div class="container-fluid">
+          <div class="row clearfix">
+            <div class="col-md-9 pl-0 pr-0">
+              <div class="owl-carousel owl-theme jumbotron-slider" id="main-carousel"></div>
+            </div>
+            <div class="col-md-3 pl-0 pr-0" id="main-static-right"></div>
+          </div>
+        </div>
+      </div>
+      <div class="section-2">
+        <div class="container-fluid">
+          <div id="insurance" class="row clearfix">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+              <div class="row" id="why-fwd">
+                <div class="col-xs-12">
+                  <h2 class="section-title">KENAPA KAMU HARUS <br class="visible-sm"></br> MEMILIH <span class="orange">FWD LIFE</span></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="testimoni" class="row clearfix">
+            <div class="col-xs-12">
+              <h2 class="testimonial-title">
+                PENDAPATMU <br class="visible-xs"></br> <span>Tentang Kami</span>
+              </h2>
+            </div>
+            
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+              <div class="featured-testimonial">
+                <div class="row no-pad" id="primary-testimonial"></div>
+              </div>
+              <div class="testimonial-list-holder">
+                <div class="testimonial-list" id="list-testimonial"></div>
+                <div class="testimonial-nav hidden-xs">
+                  <div id="testi-prev" class="holder prev">
+                    <div class="arrow"></div>
+                  </div>
+                  <div id="testi-next" class="holder next">
+                    <div class="arrow"></div>
+                  </div>
+                  <div style="clear: both;"></div>
+                </div>                
+              </div>
+            </div>              
+            <a class="btn btn-write-testimoni" data-toggle="modal" data-target="#testi-modal">TULIS TESTIMONI</a>
+          </div>
+          <div class="row clearfix celebrate" id="celebrate"></div>
+          <img src="images/bg-house.png" alt="Skate" class="img-responsive background house" id="celebrate-bg"></img>
+        </div>
+      </div>
+      
+      <div class="section-3" id="bebas">
+        <div class="container-fluid">
+          <div class="row clearfix" id="bebas">
+            <div class="ojk-holder">
+              <div class="col-xs-12">
+                <div class="row">
+                  <div class="col-xs-12 col-md-8 col-md-offset-2">
+                    <img src="images/logo-ojk.png" alt="Logo OJK" class="img-responsive"></img>
+                    <p>PT FWD Life INdonesia ("FWD Life") terdaftar dan diawasi oleh Otoritas Jasa Keuangan</p>
+                  </div>
+                </div>
+              </div>
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+        </div>
+      </div> <!-- End Section 3 -->
+      
+</div> <!-- end main content -->
+
+<div th:replace="fragments/fwd-footer :: footer"/>
+
+</body>
+</html>

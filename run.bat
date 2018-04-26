@@ -1,0 +1,1 @@
+java -jar target/fwd-portal-1.0-runnable.jar

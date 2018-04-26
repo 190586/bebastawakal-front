@@ -1,0 +1,262 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+   <div th:replace="fragments/fwd-header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/fwd-header :: header"/>
+<div  id="site-container">
+  <div class="homepage">
+    <section class="home-slider">
+      <div id="home-slider" class="slider-cont" >
+        <!--<div class="slider-item">
+          <div class="img-cont">
+            <img src="img/dummy-slider.jpg" alt=""/>
+          </div>
+        </div>
+        <div class="slider-item">
+          <div class="img-cont">
+            <img src="img/dummy-slider2.jpg" alt=""/>
+          </div>
+        </div>
+        <div class="slider-item">
+          <div class="img-cont">
+            <img src="img/dummy-slider3.jpg" alt=""/>
+          </div>
+        </div>-->
+      </div>
+      <div class="float is-absolute">
+        <div class="btn-cont">
+          <a  href="#" class="btn font-bold bg-base no-rounded" data-toggle="modal" data-target="#modalform">
+            Wujudkan di sini
+          </a>
+        </div>
+      </div>
+    </section>
+    <section class="section-partner">
+      <div class="container">
+        <h3 class="font-bold">Wujudkan Haji dengan Asuransi Bebas Tawakkal</h3>
+        <div class="row no-padding text-center margin-bottom20">
+          <div class="col-md-3 col-sm-6 col-xs-6">
+            <div class="img-cont">
+              <img src="img/icon/point1.png" alt=""/>
+            </div>
+            <div class="text-cont">
+              Tanpa uang muka
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6 col-xs-6">
+            <div class="img-cont">
+              <img src="img/icon/point2.png" alt=""/>
+            </div>
+            <div class="text-cont">
+              Mulai tabungan dengan Rp 1 juta/bulan
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6 col-xs-6">
+            <div class="img-cont">
+              <img src="img/icon/point3.png" alt=""/>
+            </div>
+            <div class="text-cont">
+              Waktu tunggu relatif lebih cepat tanpa perlu antri
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6 col-xs-6">
+            <div class="img-cont">
+              <img src="img/icon/point4.png" alt=""/>
+            </div>
+            <div class="text-cont">
+              Asuransi jiwa tanpa perlu tambahan
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section-step">
+      <div class="container text-center">
+        <h3 class="font-bold">3 langkah mudah untuk mewujudkan Haji</h3>
+        <div class="row no-margin">
+          <div class="col-xs-12 margin-bottom20">
+            <div class="row no-margin">
+              <div class="col-xs-6 no-padding">
+                <div class="img-cont">
+                  <div class="text-cont">
+                    Kunjungi partner
+                    travel Haji kami
+                  </div>
+                  <img src="img/step1-a.png" alt=""/>
+                </div>
+              </div>
+              <div class="col-xs-6 no-padding">
+                <div class="img-cont">
+                  <a data-toggle="modal" data-target="#modalform">
+                    <div class="text-cont type2">
+                      Isi data kamu<br/>
+                      Klik disini
+                    </div>
+                    <img src="img/step1-b.png" alt=""/>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 margin-bottom20">
+            <div class="img-cont">
+              <div class="text-cont">
+                Dapatkan penjelasan paket Haji dan paket Berkah
+  dari Asuransi Bebas Tawakkal yang pas buat kamu
+              </div>
+              <img src="img/step2.png" alt=""/>
+            </div>
+          </div>
+          <div class="col-xs-12 margin-bottom20">
+            <div class="img-cont">
+              <div class="text-cont type3">
+                Mulai wujudkan perjalanan Haji kamu
+              </div>
+              <img src="img/step3.png" alt=""/>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <section class="section-package">
+      <div class="row no-margin no-padding">
+        <div class="bg-tosca col-md-6">
+          <!-- <div class="img-cont">
+            <img src="assets/img/paket-berkah.jpg" alt="">
+          </div> -->
+          <div class="table-bundle">
+            <div class="title bg-orange">Paket Berkah</div>
+            <div class="content">
+              <div class="content-list">
+                <div class="number">Berkah <span>1</span></div>
+                <div class="right">
+                  Dengan kontribusi IDR 1 juta/bulan
+                </div>
+              </div>
+              <div class="content-list">
+                <div class="number">Berkah <span>2</span></div>
+                <div class="right">
+                  Dengan kontribusi IDR 1,5 juta/bulan
+                </div>
+              </div>
+              <div class="content-list">
+                <div class="number">Berkah <span>3</span></div>
+                <div class="right">
+                  Dengan kontribusi IDR 2 juta/bulan
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-orange col-md-6">
+          <div class="table-bundle">
+            <div class="title bg-tosca">Paket Haji</div>
+            <div class="content">
+              <div class="orange-box">
+                <div class="row no-margin">
+                  <div class="col-sm-4 list">
+                    <div class="row no-padding">
+                      <div class="col-xs-4 no-padding">
+                        <img src="img/haji-icon1.png" alt=""/>
+                      </div>
+                      <div class="col-xs-8 ">
+                        <div class="text-cont">
+                          Hotel
+                          bintang 4.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-8 list">
+                    <div class="row no-padding">
+                      <div class="col-sm-2 col-xs-4 no-padding">
+                        <img src="img/haji-icon3.png" alt=""/>
+                      </div>
+                      <div class="col-sm-10 col-xs-8 no-padding">
+                        <div class="text-cont type2">
+                          Tiket pesawat
+                          PP Jakarta Jeddah<br/>
+                          <span>(administrasi imigrasi lebih cepat).</span>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 list">
+                    <div class="row no-padding">
+                      <div class="col-xs-4 no-padding">
+                        <img src="img/haji-icon2.png" alt=""/>
+                      </div>
+                      <div class="col-xs-8">
+                        <div class="text-cont">
+                          Tenda
+                          AC.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-8 list">
+                    <div class="row no-padding">
+                      <div class="col-sm-2 col-xs-4 no-padding">
+                        <img src="img/haji-icon4.png" alt=""/>
+                      </div>
+                      <div class="col-sm-10 col-xs-8 no-padding">
+                        <div class="text-cont type2">
+                          Perlengkapan Haji<br/>
+                          <span>(koper, ihrom/mukena bahan
+                          batik, buku panduan, dll).</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-info">
+                <ul>
+                  <li>
+                    Pembimbing/Muthowwif berpengalaman.
+                  </li>
+                  <li>Bimbingan Manasik Haji.</li>
+                  <li>Akomodasi selama ibadah Haji.</li>
+                  <li>Makan 3x sehari.</li>
+                  <li>Transportasi bus AC selama ibadah haji.</li>
+                  <li>5 liter air Zam - zam.</li>
+
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section-donasi">
+      <h3 class="font-white text-center font-bold">Fitur Donasi</h3>
+      <div class="container">
+        <div class="row border-box bg-blue">
+          <div class="col-sm-4 left">
+            <div class="img-cont">
+              <img src="img/dompetduafa.png" alt=""/>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <p>
+              Selain membantu mewujudkan Haji, Asuransi Bebas Tawakkal
+    juga dilengkapi dengan fitur donasi. Bekerjasama dengan
+    Dompet Dhuafa, peserta diberikan pilihan untuk mendonasikan
+    sebagian hartanya untuk kemaslahatan atau untuk kepentingan
+    masyarakat yang sesuai dengan rukun Islam.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div> <!-- end main content -->
+
+<div th:replace="fragments/fwd-footer :: footer"/>
+<script src="js/includes/homepage.js" ></script>
+</body>
+</html>
