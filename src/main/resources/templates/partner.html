@@ -52,8 +52,97 @@
         </div>
       </div>
     </div>
+
+    <div class="container partner-button">
+      <!-- <div class="text-right margin-bottom50">
+        <div class="btn-cont">
+          <a  href="#" class="btn green no-rounded" data-toggle="modal" data-target="#modalpartnerform">Jadi Partner Kami</a>
+        </div>
+      </div> -->
+      <div class="float is-absolute">
+        <div class="btn-cont">
+          <a href="#" class="btn font-bold bg-partner no-rounded" data-toggle="modal" data-target="#modalpartnerform">
+            Jadi Partner Kami
+          </a>
+        </div>
+      </div>
+    </div>
+
   </div> <!-- end main content -->
 </div>
+<!-- Modal -->
+  <div class="modal fade" id="modalpartnerform" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-close">
+          <i data-dismiss="modal" class="fa fa-times-circle"></i>
+        </div>
+        <div class="modal-body">
+
+          <form id="register" action="#">
+            <div class="field-cont row">
+              <div class="col-sm-2">
+                <label for="name">Nama</label>
+              </div>
+              <div class="col-sm-10">
+                <input id="input_name" name="name" data-validation="required alphanumeric" data-validation-error-msg-required="Nama Harus Dimasukkan" data-validation-error-msg-alphanumeric="Nama hanya boleh berupa alphanumeric" type="text"/>
+              </div>
+            </div>
+            <div class="field-cont row">
+              <div class="col-sm-2">
+                <label for="name">Perusahaan</label>
+              </div>
+              <div class="col-sm-10">
+                <input id="input_name" name="perusahaan" data-validation="required" data-validation-error-msg-required="Nama Harus Dimasukkan" type="text"/>
+              </div>
+            </div>
+            <div class="field-cont row">
+              <div class="col-sm-2">
+                <label for="phone">No.Telp</label>
+              </div>
+              <div class="col-sm-10">
+                <input id="input_phone" data-validation="required number" data-validation-error-msg-required="Nomer Harus Dimasukkan" data-validation-error-msg-number="Hanya boleh memasukan nomor" name="phone" type="number"/>
+              </div>
+            </div>
+            <div class="field-cont row">
+              <div class="col-sm-2">
+                <label for="email">Email</label>
+              </div>
+              <div class="col-sm-10">
+                <input id="input_email" data-validation="required email" name="email" type="text"/>
+
+              </div>
+            </div>
+            <div class="field-cont">
+              <div class="col-sm-12">
+                <input id="submit_form" type="submit" value="Daftar"/>
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalthanks" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-close">
+          <i data-dismiss="modal" class="fa fa-times-circle"></i>
+        </div>
+        <div class="modal-body text-center">
+          <h4>Terima kasih atas ketertarikan kamu untuk bergabung menjadi rekanan FWD.<br/> Kami akan menghubungi kamu dalam waktu 3x24 jam.</h4>
+        </div>
+      </div>
+
+    </div>
+  </div>
 <div th:replace="fragments/fwd-footer :: footer"/>
 
 </body>

@@ -5,6 +5,11 @@
  */
 package com.fwd.controller;
 
+import com.fwd.domain.Customer;
+import com.fwd.domain.Partner;
+import com.fwd.repository.CustomerRepository;
+import com.fwd.repository.PartnerRepository;
+import com.fwd.repository.TestimonialRepository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +29,8 @@ import com.fwd.service.HomePageService;
 import com.fwd.util.CustomLogger;
 import com.fwd.util.RC;
 import com.fwd.util.RF;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -38,6 +45,12 @@ public class HomePageController {
     
     @Autowired
     private HomePageService homePageService;
+    
+    @Autowired
+    CustomerRepository customerRepository;
+    
+    @Autowired
+    PartnerRepository partnerRepository;
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
   
@@ -189,6 +202,48 @@ public class HomePageController {
         }
         entity = new ResponseEntity(resp, headers, HttpStatus.OK);
 
+        return entity;
+    }
+    
+    @RequestMapping(value = "/add-customer", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> addCustomer(@RequestBody Customer request) {
+        ResponseEntity<?> entity = null;
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        Map<String, Object> resp = new HashMap();
+        try {
+            customerRepository.save(request);
+            boolean success = true;
+            resp.put(RF.RESULTS, success);
+            resp.put(RF.RESPONSE_CODE, RC.SUCCESS);
+            resp.put(RF.RESPONSE_MESSAGE, RC.SUCCESS_DESC);
+        } catch (Exception ex) {
+            resp.put(RF.RESPONSE_CODE, RC.UNKNOWN_FAIL);
+            resp.put(RF.RESPONSE_MESSAGE, RC.UNKNOWN_FAIL_DESC);
+        }
+        entity = new ResponseEntity(resp, headers, HttpStatus.OK);
+        return entity;
+    }
+    
+    @RequestMapping(value = "/add-partner", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> addPartner(@RequestBody Partner request) {
+        ResponseEntity<?> entity = null;
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        Map<String, Object> resp = new HashMap();
+        try {
+            partnerRepository.save(request);
+            boolean success = true;
+            resp.put(RF.RESULTS, success);
+            resp.put(RF.RESPONSE_CODE, RC.SUCCESS);
+            resp.put(RF.RESPONSE_MESSAGE, RC.SUCCESS_DESC);
+        } catch (Exception ex) {
+            resp.put(RF.RESPONSE_CODE, RC.UNKNOWN_FAIL);
+            resp.put(RF.RESPONSE_MESSAGE, RC.UNKNOWN_FAIL_DESC);
+        }
+        entity = new ResponseEntity(resp, headers, HttpStatus.OK);
         return entity;
     }
     
