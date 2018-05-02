@@ -6,10 +6,16 @@ import org.springframework.stereotype.Component;
 public class GlobalValue {
 
     public static String PATH_IMAGE;
+    public static String URL_BACKEND;
     public static String TALENTS_PROTOCOL;
 
     @Value("${fwd.path.image}")
     public void setDatabase(String path) {
     	PATH_IMAGE = path;
+    }
+    
+    @Value("${fwd.url.backend}")
+    public void getURLBackend(String url) {
+    	URL_BACKEND = url;
     }
 }
