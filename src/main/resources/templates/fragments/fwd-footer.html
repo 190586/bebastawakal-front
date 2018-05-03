@@ -12,65 +12,13 @@
               <div class="footer-top">
                 <div class="row footer-list">
                   <div class="col-md-3">
-                    <div class="footer-item">
-                      <h3 class="footer-title">Bebas Aksi</h3>
-                      <ul class="footer-links">
-                        <li><a href="/asuransi-kecelakaan-diri/bebas-aksi">Manfaat</a></li>
-                        <li><a href="/cara-pembelian">Cara Pembayaran</a></li>
-                        <li><a href="/asuransi-kecelakaan-diri/bebas-aksi/daftar-pekerjaan">Beli</a></li>
-                        <li><a href="/claim-id">Klaim</a></li>
-                      </ul>
-                    </div>
+                    <div id="footer-first-section" class="footer-item"></div>
                   </div>
                   <div class="col-md-3">
-                    <div class="footer-item">
-                      <h3 class="footer-title">Bebas Rencana</h3>
-                      <ul class="footer-links">
-                          <li><a href="/asuransi-jiwa-berjangka/bebas-rencana">Manfaat</a></li>
-                        <li><a href="/cara-pembelian">Cara Pembayaran</a></li>
-                        <li><a href="/asuransi-jiwa-berjangka/bebas-rencana/daftar-pekerjaan">Beli</a></li>
-                        <li><a href="/claim-id">Klaim</a></li>
-                      </ul>
-                    </div>
+                    <div id="footer-second-section" class="footer-item"></div>
                   </div>
-                  <div class="col-md-3">
-                    <div class="footer-item">
-                      <h3 class="footer-title">Bergabung</h3>
-                      <ul class="footer-links">
-                        <li><a href="http://www.fwd.co.id/lowongan">Karir</a></li>
-                      </ul>
-                    </div>
-                    <div class="footer-item">
-                     <h3 class="footer-title">FWD Life</h3>
-                      <ul class="footer-links">
-                        <li><a href="https://www.fwd.co.id" target="_blank">fwd.co.id</a></li>
-                      </ul>
-                    </div>
-                    <div class="footer-item">
-                     <h3 class="footer-title">Lihat Aktivitas Kami</h3>
-                      <ul class="footer-links">
-                        <li><a href="http://passionstory.fwd.co.id/" target="_blank">passionstory.fwd.co.id</a></li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div class="col-md-3">
-                    <div class="footer-item">
-                      <div class="footer-item">
-                        <h3 class="footer-title">Hubungi Kami</h3>
-                        <p>Pacific Century Place, Lantai 20 SCBD Lot 10<br/>Jl. Jend. Sudirman Kav 52-53 Jakarta Selatan<br/>12190 Indonesia</p>
-                        <h3 class="footer-title">Layanan Hotline (24/7)</h3>
-                        <p>1-500-391</p>
-                      </div>
-                      <ul class="footer-social">
-                        <li><a href="https://www.facebook.com/fwdlife.id" target="_blank"><i class="fa fa-facebook-square"></i></a></li>
-                        <li><a href="https://www.youtube.com/user/fwdlifeindonesia" target="_blank"><i class="fa fa-youtube"></i></a></li>
-                        <li><a href="https://www.instagram.com/fwdlife_id" target="_blank"><i class="fa fa-instagram"></i></a></li>
-                        <li><a href="https://twitter.com/fwdlife_id" target="_blank"><i class="fa fa-twitter-square"></i></a></li>
-                      </ul>
-                    </div>
-                  </div>
-
+                  <div id="footer-action-section" class="col-md-3"></div>
+                  <div id="footer-identity-section" class="col-md-3"></div>
                 </div>
               </div>
               <div class="footer-bottom">
@@ -104,7 +52,7 @@
                 <i data-dismiss="modal" class="fa fa-times-circle"></i>
               </div>
               <div class="modal-body">
-                <form id="register" action="#">
+                <form id="register_form" action="#">
                   <div class="field-cont row">
                     <div class="col-sm-2">
                       <label for="name">Nama</label>
@@ -139,9 +87,7 @@
                   </div>
                 </form>
               </div>
-
             </div>
-
           </div>
         </div>
 
@@ -160,12 +106,29 @@
 
           </div>
         </div>
+      
+        <div class="modal fade" id="modalfailed" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-close">
+                <i data-dismiss="modal" class="fa fa-times-circle"></i>
+              </div>
+              <div class="modal-body text-center">
+                <h4>Proses penyimpanan data diri kamu gagal. Silahkan coba kembali...</h4>
+              </div>
+            </div>
+
+          </div>
+        </div>
 
 
       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
       <script src="js/vendor.min.js" ></script>
       <script src="js/plugins.min.js" ></script>
       <script src="js/app.min.js" ></script>
+      <script src="js/includes/homepage.min.js" ></script>
 </div>
 </body>
 </html>
