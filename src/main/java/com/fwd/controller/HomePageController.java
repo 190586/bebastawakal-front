@@ -5,6 +5,8 @@
  */
 package com.fwd.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fwd.domain.Customer;
 import com.fwd.domain.Partner;
 import com.fwd.repository.CustomerRepository;
@@ -13,7 +15,7 @@ import com.fwd.repository.TestimonialRepository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import com.fwd.util.GlobalValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +31,13 @@ import com.fwd.service.HomePageService;
 import com.fwd.util.CustomLogger;
 import com.fwd.util.RC;
 import com.fwd.util.RF;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
 /**
  *
@@ -51,15 +58,35 @@ public class HomePageController {
 
     @Autowired
     PartnerRepository partnerRepository;
+<<<<<<< HEAD
 
+=======
+    
+    ObjectMapper mapper = new ObjectMapper();
+    
+>>>>>>> 774f540353c6073652c47b70ed7b6786ffacd847
     @RequestMapping(value = "/", method = RequestMethod.GET)
 
     public String index() {
         return "/home";
     }
+<<<<<<< HEAD
 
     @RequestMapping(value = "/home-slider", method = {RequestMethod.GET})
     public ResponseEntity<?> getHomeSlider() {
+=======
+    
+    @RequestMapping(value = "/main-carousel-bar", method = {RequestMethod.GET})
+    public ResponseEntity<?> getMainCarouselBar() {
+        String urlAPI = GlobalValue.URL_BACKEND+"home/main-carousel-bar";
+        ResponseEntity<?> entity = getRequestRestClient(urlAPI);
+        
+        return entity;
+    }
+    
+    @RequestMapping(value = "/main-static-right", method = {RequestMethod.GET})
+    public ResponseEntity<?> getMainStaticRight() {
+>>>>>>> 774f540353c6073652c47b70ed7b6786ffacd847
         ResponseEntity<?> entity = null;
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
@@ -81,22 +108,9 @@ public class HomePageController {
 
     @RequestMapping(value = "/list-menus/{menuType}", method = {RequestMethod.GET})
     public ResponseEntity<?> getListMenus(@PathVariable String menuType) {
-        ResponseEntity<?> entity = null;
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json");
-        Map<String, Object> resp = new HashMap();
-        try {
-            List results = homePageService.getMenu(menuType);
-            resp.put(RF.RESULTS, results);
-            resp.put(RF.RESPONSE_CODE, RC.SUCCESS);
-            resp.put(RF.RESPONSE_MESSAGE, RC.SUCCESS_DESC);
-        } catch (Exception ex) {
-            resp.put(RF.RESPONSE_CODE, RC.UNKNOWN_FAIL);
-            resp.put(RF.RESPONSE_MESSAGE, RC.UNKNOWN_FAIL_DESC);
-            errorLogger.error(ex.getMessage(), ex);
-        }
-        entity = new ResponseEntity(resp, headers, HttpStatus.OK);
-
+        
+        String urlAPI = GlobalValue.URL_BACKEND+"home/list-menus/"+menuType;
+        ResponseEntity<?> entity = getRequestRestClient(urlAPI);
         return entity;
     }
 
@@ -144,22 +158,8 @@ public class HomePageController {
 
     @RequestMapping(value = "/list-pages/{pageType}", method = {RequestMethod.GET})
     public ResponseEntity<?> getListPages(@PathVariable String pageType) {
-        ResponseEntity<?> entity = null;
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json");
-        Map<String, Object> resp = new HashMap();
-        try {
-            List results = homePageService.getListPages(pageType);
-            resp.put(RF.RESULTS, results);
-            resp.put(RF.RESPONSE_CODE, RC.SUCCESS);
-            resp.put(RF.RESPONSE_MESSAGE, RC.SUCCESS_DESC);
-        } catch (Exception ex) {
-            resp.put(RF.RESPONSE_CODE, RC.UNKNOWN_FAIL);
-            resp.put(RF.RESPONSE_MESSAGE, RC.UNKNOWN_FAIL_DESC);
-            errorLogger.error(ex.getMessage(), ex);
-        }
-        entity = new ResponseEntity(resp, headers, HttpStatus.OK);
-
+        String urlAPI = GlobalValue.URL_BACKEND+"home/list-pages/"+pageType;
+        ResponseEntity<?> entity = getRequestRestClient(urlAPI);
         return entity;
     }
 
@@ -187,23 +187,49 @@ public class HomePageController {
     @RequestMapping(value = "/add-customer", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> addCustomer(@RequestBody Customer request) {
+        String url = GlobalValue.URL_BACKEND+"home/add-customer";
+        MultiValueMap<String, String> headersPost = new LinkedMultiValueMap<String, String>();
+        headersPost.add("Content-Type", "application/json");
+        Map<String, Object> map = mapper.convertValue(request, Map.class);
+        HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(map,headersPost);
+        ResponseEntity<?> entity =  getPostRestClient(httpEntity, url);
+        return entity;
+    }
+    
+    @RequestMapping(value = "/add-partner", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> addPartner(@RequestBody Partner request) {
+        String url = GlobalValue.URL_BACKEND+"home/add-partner";
+        MultiValueMap<String, String> headersPost = new LinkedMultiValueMap<String, String>();
+        headersPost.add("Content-Type", "application/json");
+        Map<String, Object> map = mapper.convertValue(request, Map.class);
+        HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(map,headersPost);
+        ResponseEntity<?> entity =  getPostRestClient(httpEntity, url);
+        return entity;
+    }
+    
+    private ResponseEntity<?> getRequestRestClient(String urlAPI) {
+        
         ResponseEntity<?> entity = null;
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
-        Map<String, Object> resp = new HashMap();
+        
+        Map<String, Object> resp = new HashMap<String, Object>();
+        RestTemplate restTemplate = new RestTemplate();
         try {
-            customerRepository.save(request);
-            boolean success = true;
-            resp.put(RF.RESULTS, success);
-            resp.put(RF.RESPONSE_CODE, RC.SUCCESS);
-            resp.put(RF.RESPONSE_MESSAGE, RC.SUCCESS_DESC);
+            //ObjectMapper mapper = new ObjectMapper();
+            ResponseEntity<String> response = restTemplate.getForEntity(urlAPI , String.class);
+            resp = mapper.readValue(response.getBody(), new TypeReference<Map<String, Object>>(){});
         } catch (Exception ex) {
             resp.put(RF.RESPONSE_CODE, RC.UNKNOWN_FAIL);
             resp.put(RF.RESPONSE_MESSAGE, RC.UNKNOWN_FAIL_DESC);
+            errorLogger.error(ex.getMessage(), ex);
         }
         entity = new ResponseEntity(resp, headers, HttpStatus.OK);
+
         return entity;
     }
+<<<<<<< HEAD
 
     @RequestMapping(value = "/add-partner", method = RequestMethod.POST)
     @ResponseBody
@@ -211,9 +237,14 @@ public class HomePageController {
         ResponseEntity<?> entity = null;
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
+=======
+    
+    public ResponseEntity<?> getPostRestClient(HttpEntity<Map<String, Object>> request, String url) {
+        ResponseEntity<?> result = null;
+>>>>>>> 774f540353c6073652c47b70ed7b6786ffacd847
         Map<String, Object> resp = new HashMap();
-        try {
-            partnerRepository.save(request);
+        RestTemplate restTemplate = new RestTemplate();try {
+            String response = restTemplate.postForObject(url, request,String.class);
             boolean success = true;
             resp.put(RF.RESULTS, success);
             resp.put(RF.RESPONSE_CODE, RC.SUCCESS);
@@ -222,8 +253,16 @@ public class HomePageController {
             resp.put(RF.RESPONSE_CODE, RC.UNKNOWN_FAIL);
             resp.put(RF.RESPONSE_MESSAGE, RC.UNKNOWN_FAIL_DESC);
         }
-        entity = new ResponseEntity(resp, headers, HttpStatus.OK);
-        return entity;
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        result = new ResponseEntity(resp, headers, HttpStatus.OK);
+        return result;
     }
+<<<<<<< HEAD
 
+=======
+    
+    
+    
+>>>>>>> 774f540353c6073652c47b70ed7b6786ffacd847
 }
