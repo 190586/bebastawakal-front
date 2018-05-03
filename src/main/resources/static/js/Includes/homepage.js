@@ -215,11 +215,11 @@ var Homepage = function() {
 			saving();
 		},
 		loadPartner : function() {
-			$.getJSON('/home/list-pages/PARTNER', function(data) {
+			$.getJSON('/home/list-partner', function(data) {
 				$.each(data.RESULTS, function(key, val) {
-					$('#header-image-path').append('<img src="'+ val.headerImagePath +'" alt="" />');
+					$('#avatar-path').append('<img src="'+ val.avatarPath +'" alt="" />');
 					$('#content').html(val.content);
-					$('#breadcrumb').html(val.breadcrumb);
+					$('#address').html(val.address);
 				});
 			});
 		},
