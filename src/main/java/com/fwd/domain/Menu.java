@@ -22,10 +22,8 @@ import javax.persistence.Transient;
 @Table(name = "menu")
 public class Menu implements Serializable {
 
-    public static final String CAROUSEL_TYPE = "CAROUSEL";
-    public static final String STATIC_RIGHT_TYPE = "STATIC-RIGHT";
+    public static final String HOME_SLIDER_TYPE = "HOME-SLIDER";
     public static final String FIRST_MENU_TYPE = "FIRST-MENU";
-    public static final String SECONDARY_MENU_TYPE = "SECONDARY-MENU";
     
     @Column(name = "button_text", table = "menu", unique = false, updatable = true, insertable = true, nullable = true, length = 100, scale = 0, precision = 0)
     @Basic

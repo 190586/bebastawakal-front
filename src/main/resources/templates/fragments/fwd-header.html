@@ -2,15 +2,11 @@
 <head>
     <div th:fragment="header-css">
     <title>Bebas Tawakal</title>
-	   <!-- <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../../css/bootstrap.min.css" />-->
-         <!-- Bootstrap-->
-     <!--link rel="stylesheet" th:href="@{/css/A.vendor.min.css%2bplugins.min.css%2bmain.css%2cMcc.LRpEwmMMdW.css.pagespeed.cf.8Eon8Mzge6.css}"/-->
-
      <!-- Bootstrap -->
      <link rel="stylesheet" th:href="@{/css/vendor.min.css}" />
      <link th:href="@{/css/plugins.min.css}" rel="stylesheet"/>
      <link th:href="@{/css/main.css}" rel="stylesheet"/>
-     <link th:href="@{/css/Pages/homepage.css}" rel="stylesheet"/>
+     <link th:href="@{/css/pages/homepage.css}" rel="stylesheet"/>
     </div>
 </head>
 <body>
@@ -23,11 +19,7 @@
         <img th:src="@{/img/fwd-logo.png}" alt="FWD"/>
       </a>
     </div>
-    <div class="pull-right menu-top">
-      <a href="http://www.fwd.co.id/id/about">Tentang FWD</a>
-      <span> | </span>
-      <a href="/partner">Partner Kami</a>
-    </div>
+    <div id="menu-top" class="pull-right menu-top"></div>
   </div>
 </div>
 <!-- HEADER -->

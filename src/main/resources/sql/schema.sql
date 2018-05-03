@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `short_description` longtext,
   `start_time` datetime NOT NULL,
   `title` varchar(100) DEFAULT NULL,
-  `type` varchar(12) NOT NULL,
+  `type` varchar(50) NOT NULL,
   `url` longtext,
   PRIMARY KEY (`id_menu`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

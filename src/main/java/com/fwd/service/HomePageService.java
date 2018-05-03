@@ -28,16 +28,9 @@ public class HomePageService {
     @Autowired
     ProfileRepository settingRepository;
 
-    public List<Menu> getMainCarouselBar() {
+    public List<Menu> getHomeSlider() {
         Date now = new Date();
-        List<Menu> menu = menuRepository.findTop5ByTypeAndActiveAndStartTimeLessThanAndEndTimeGreaterThanOrderByOrdersAsc(Menu.CAROUSEL_TYPE, true, now, now);
-        
-        return menu;
-    }
-    
-    public List<Menu> getMainStaticRight() {
-        Date now = new Date();
-        List<Menu> menu = menuRepository.findTop3ByTypeAndActiveAndStartTimeLessThanAndEndTimeGreaterThanOrderByOrdersAsc(Menu.STATIC_RIGHT_TYPE, true, now, now);
+        List<Menu> menu = menuRepository.findTop5ByTypeAndActiveAndStartTimeLessThanAndEndTimeGreaterThanOrderByOrdersAsc(Menu.HOME_SLIDER_TYPE, true, now, now);
         
         return menu;
     }

@@ -1,1 +1,1 @@
-java -jar target/fwd-portal-1.0-runnable.jar
+java -jar target/bebas-tawakal-front-1.0.jar
