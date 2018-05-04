@@ -9,7 +9,7 @@ target/
 *.idea/
 logs/*
 .mvn/*
-
+application.properties
 #######
 #################################
 #### OSX/Finder:

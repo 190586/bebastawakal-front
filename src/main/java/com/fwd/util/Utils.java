@@ -8,11 +8,13 @@ import sun.misc.BASE64Decoder;
 
 public class Utils {
 	public static String UPLOAD_IMAGE_TYPE = "png";
-	public static String PATH_UPLOAD = GlobalValue.PATH_IMAGE;
+	//public static String PATH_UPLOAD = GlobalValue.PATH_IMAGE; //comment dl
 	
+        public static String PATH_UPLOAD = ""; 
 	public static void createImage(String image, String filename) {
 		String fileType = UPLOAD_IMAGE_TYPE;
-		String path = GlobalValue.PATH_IMAGE;
+		// String path = GlobalValue.PATH_IMAGE; // comment dl
+                String path = "";
 			try {
 			BufferedImage bufImg = decodeToImage(image);
 			File imgOutFile = new File(path + filename);

@@ -6,7 +6,7 @@ var Homepage = function() {
 		initialize : function() {
 			var _this = this;
 			var pathname = window.location.pathname;
-			if(pathname === '/partner') {
+			if(pathname.indexOf('/partner') > 0) {
 				this.loadPartner();
 			} else {
 				this.loadTopMenu();
@@ -21,7 +21,7 @@ var Homepage = function() {
 			this.loadFooterActionSection();
 			this.loadFooterIdentitySection();
 			$('#register_form').submit(function() {
-				if(pathname === '/partner') {
+				if(pathname.indexOf('/partner') > 0) {
 					_this.submitPartner(this);
 				} else {
 					_this.submitCustomer(this);
@@ -44,7 +44,7 @@ var Homepage = function() {
         loadHomeSlider : function() {
 			$.getJSON('home/home-slider', function(data) {
 				$.each(data.RESULTS, function(key, val) {
-					$('#home-slider').append('<div class="slider-item"><div class="img-cont"><img src="/public/images?path='+ val.imagePath +'" alt="'+ val.title +'" ></img></div></div>');
+					$('#home-slider').append('<div class="slider-item"><div class="img-cont"><img src="public/images?path='+ val.imagePath +'" alt="'+ val.title +'" ></img></div></div>');
 				});
 				$('#home-slider').slick({
 					dots:!0,arrows:!1,
