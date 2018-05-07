@@ -44,7 +44,7 @@ var Homepage = function() {
         loadHomeSlider : function() {
 			$.getJSON('home/home-slider', function(data) {
 				$.each(data.RESULTS, function(key, val) {
-					$('#home-slider').append('<div class="slider-item"><div class="img-cont"><img src="public/images?path='+ val.imagePath +'" alt="'+ val.title +'" ></img></div></div>');
+					$('#home-slider').append('<div class="slider-item"><div class="img-cont"><img src="'+ val.imagePath +'" alt="'+ val.title +'" ></img></div></div>');
 				});
 				$('#home-slider').slick({
 					dots:!0,arrows:!1,
@@ -189,28 +189,65 @@ var Homepage = function() {
 				$('#footer-identity-section').append(social);
 			});
 		},
+		initCustomer : function() {
+			$('#input_name').val('');
+			$('span.help-block.form-error.name-error').html('');
+			$('#input_phone').val('');
+			$('span.help-block.form-error.phone-error').html('');
+			$('#input_email').val('');
+			$('span.help-block.form-error.email-error').html('');
+			$('#submit_form').show();
+			$('#form_loader').hide();
+			$('#modalform').modal('show');
+		},
 		submitCustomer : function(form) {
 			var data = {};
-			$(form).serializeArray().map(function(x){data[x.name] = x.value;});
-			data = JSON.stringify(data);
-			var saving = function() {
-				$.ajax({
-					'dataType' : 'json',
-					'contentType' : 'application/json',
-					'type' : 'POST',
-					'url' : 'home/add-customer',
-					'data' : data,
-					'success' : function(data) {
-						$('#modalthanks').modal('show');
-						$('#modalform').modal('hide');
-					},
-					'error' : function(data) {
-						$('#modalfailed').modal('show');
-						$('#modalform').modal('hide');
-					}
-				});
+			var captcha = '', csrf = '';
+			$(form).serializeArray().map(function(x){if(x.name=='g-recaptcha-response'){captcha=x.value;}else if(x.name=='_csrf'){csrf=x.value;}else{data[x.name] = x.value;}});
+			if(data.name && data.phone && data.email && grecaptcha.getResponse()) {
+				data = JSON.stringify(data);
+				var saving = function() {
+					$.ajax({
+						'dataType' : 'json',
+						'contentType' : 'application/json',
+						'type' : 'POST',
+						'url' : 'home/add-customer?g-recaptcha-response='+ captcha +'&_csrf='+ csrf,
+						'data' : data,
+						'success' : function(data) {
+							$('#modalthanks').modal('show');
+							$('#modalform').modal('hide');
+						},
+						'error' : function(data) {
+							$('#modalfailed').modal('show');
+							$('#modalform').modal('hide');
+						}
+					});
+				}
+				$('#submit_form').hide();
+				$('#form_loader').show();
+				saving();
+				$('#submit_form').show();
+				$('#form_loader').hide();
+			} else {
+				if(!data.name) {
+					$('span.help-block.form-error.name-error').html('Nama Harus Dimasukkan');
+				} else {
+					$('span.help-block.form-error.name-error').html('');
+				}
+				if(!data.phone) {
+					$('span.help-block.form-error.phone-error').html('Telepon Harus Dimasukkan');
+				} else {
+					$('span.help-block.form-error.phone-error').html('');
+				}
+				if(!data.email) {
+					$('span.help-block.form-error.email-error').html('Email Harus Dimasukkan');
+				} else {
+					$('span.help-block.form-error.email-error').html('');
+				}
+				if(grecaptcha.getResponse()) {
+					$('span.help-block.form-error.captcha-error').html('Captcha Harus Dipilih');
+				}
 			}
-			saving();
 		},
 		loadPartner : function() {
 			$.getJSON('home/list-partner', function(data) {
@@ -221,28 +258,72 @@ var Homepage = function() {
 				});
 			});
 		},
+		initPartner : function() {
+			$('#name').val('');
+			$('span.help-block.form-error.name-error').html('');
+			$('#companyName').val('');
+			$('span.help-block.form-error.companyname-error').html('');
+			$('#phone').val('');
+			$('span.help-block.form-error.phone-error').html('');
+			$('#email').val('');
+			$('span.help-block.form-error.email-error').html('');
+			$('#submit_form').show();
+			$('#form_loader').hide();
+			$('#modalpartnerform').modal('show');
+		},
 		submitPartner : function(form) {
 			var data = {};
-			$(form).serializeArray().map(function(x){data[x.name] = x.value;});
-			data = JSON.stringify(data);
-			var saving = function() {
-				$.ajax({
-					'dataType' : 'json',
-					'contentType' : 'application/json',
-					'type' : 'POST',
-					'url' : 'home/add-partner',
-					'data' : data,
-					'success' : function(data) {
-						$('#modalthanks').modal('show');
-						$('#modalpartnerform').modal('hide');
-					},
-					'error' : function(data) {
-						$('#modalfailed').modal('show');
-						$('#modalpartnerform').modal('hide');
-					}
-				});
+			var captcha = '', csrf = '';
+			$(form).serializeArray().map(function(x){if(x.name=='g-recaptcha-response'){captcha=x.value;}else if(x.name=='_csrf'){csrf=x.value;}else{data[x.name] = x.value;}});
+			if(data.name && data.companyName && data.phone && data.email && grecaptcha.getResponse()) {
+				data = JSON.stringify(data);
+				var saving = function() {
+					$.ajax({
+						'dataType' : 'json',
+						'contentType' : 'application/json',
+						'type' : 'POST',
+						'url' : 'home/add-partner?g-recaptcha-response='+ captcha +'&_csrf='+ csrf,
+						'data' : data,
+						'success' : function(data) {
+							$('#modalpartnerthanks').modal('show');
+							$('#modalpartnerform').modal('hide');
+						},
+						'error' : function(data) {
+							$('#modalfailed').modal('show');
+							$('#modalpartnerform').modal('hide');
+						}
+					});
+				}
+				$('#submit_form').hide();
+				$('#form_loader').show();
+				saving();
+				$('#submit_form').show();
+				$('#form_loader').hide();
+			} else {
+				if(!data.name) {
+					$('span.help-block.form-error.name-error').html('Nama Harus Dimasukkan');
+				} else {
+					$('span.help-block.form-error.name-error').html('');
+				}
+				if(!data.companyName) {
+					$('span.help-block.form-error.companyname-error').html('Nama Perusahaan Harus Dimasukkan');
+				} else {
+					$('span.help-block.form-error.companyname-error').html('');
+				}
+				if(!data.phone) {
+					$('span.help-block.form-error.phone-error').html('Telepon Harus Dimasukkan');
+				} else {
+					$('span.help-block.form-error.phone-error').html('');
+				}
+				if(!data.email) {
+					$('span.help-block.form-error.email-error').html('Email Harus Dimasukkan');
+				} else {
+					$('span.help-block.form-error.email-error').html('');
+				}
+				if(grecaptcha.getResponse()) {
+					$('span.help-block.form-error.captcha-error').html('Captcha Harus Dipilih');
+				}
 			}
-			saving();
 		},
     }
 }();

@@ -6,85 +6,24 @@ package com.fwd.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-@Entity
-@Table(name = "menu")
 public class Menu implements Serializable {
 
     public static final String HOME_SLIDER_TYPE = "HOME-SLIDER";
     public static final String FIRST_MENU_TYPE = "FIRST-MENU";
     
-    @Column(name = "button_text", table = "menu", unique = false, updatable = true, insertable = true, nullable = true, length = 100, scale = 0, precision = 0)
-    @Basic
     private String buttonText;
-
-    @Column(name = "image_path", table = "menu", unique = false, updatable = true, insertable = true, nullable = false, length = 65535, scale = 0, precision = 0)
-    @Lob
-    @Basic
     private String imagePath;
-    
-    @Transient
-    private boolean imagePathChanged = false;
-
-    @Column(name = "description", table = "menu", unique = false, updatable = true, insertable = true, nullable = true, length = 65535, scale = 0, precision = 0)
-    @Lob
-    @Basic
     private String description;
-
-    @Column(name = "active", table = "menu", unique = false, updatable = true, insertable = true, nullable = false, length = 255, scale = 0, precision = 0)
-    @Basic
     private boolean active;
-
-    @Column(name = "id_menu", table = "menu", unique = false, updatable = true, insertable = true, nullable = false, length = 255, scale = 0, precision = 0)
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idMenu;
-
-    @Column(name = "start_time", table = "menu", unique = false, updatable = true, insertable = true, nullable = false, length = 255, scale = 0, precision = 0)
-    @Temporal(TemporalType.TIMESTAMP)
-    @Basic
     private Date startTime;
-
-    @Column(name = "short_description", table = "menu", unique = false, updatable = true, insertable = true, nullable = true, length = 65535, scale = 0, precision = 0)
-    @Lob
-    @Basic
     private String shortDescription;
-
-    @Column(name = "end_time", table = "menu", unique = false, updatable = true, insertable = true, nullable = true, length = 255, scale = 0, precision = 0)
-    @Temporal(TemporalType.TIMESTAMP)
-    @Basic
     private Date endTime;
-
-    @Column(name = "type", table = "menu", unique = false, updatable = true, insertable = true, nullable = false, length = 12, scale = 0, precision = 0)
-    @Basic
     private String type;
-
-    @Column(name = "title", table = "menu", unique = false, updatable = true, insertable = true, nullable = true, length = 100, scale = 0, precision = 0)
-    @Basic
     private String title;
-
-    @Column(name = "url", table = "menu", unique = false, updatable = true, insertable = true, nullable = true, length = 65535, scale = 0, precision = 0)
-    @Lob
-    @Basic
     private String url;
-
-    @Column(name = "orders", table = "menu", unique = false, updatable = true, insertable = true, nullable = false, length = 255, scale = 0, precision = 0)
-    @Basic
     private int orders;
-
-    @Column(name = "data_href", table = "menu", unique = false, updatable = true, insertable = true, nullable = false, length = 255, scale = 0, precision = 0)
-    @Basic
     private boolean dataHref;
     
     public Menu() {
@@ -194,13 +133,4 @@ public class Menu implements Serializable {
     public void setDataHref(boolean dataHref) {
         this.dataHref = dataHref;
     }
-
-    public boolean isImagePathChanged() {
-        return imagePathChanged;
-    }
-
-    public void setImagePathChanged(boolean imagePathChanged) {
-        this.imagePathChanged = imagePathChanged;
-    }
-    
 }

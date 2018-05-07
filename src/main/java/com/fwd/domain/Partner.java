@@ -6,76 +6,20 @@ package com.fwd.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-@Entity
-@Table(name = "partner")
 public class Partner implements Serializable {
 
-    @Column(name = "datetime", table = "partner", unique = false, updatable = true, insertable = true, nullable = true, length = 255, scale = 0, precision = 0)
-    @Temporal(TemporalType.TIMESTAMP)
-    @Basic
     private Date datetime;
-
-   
-    @Column(name = "name", table = "partner", unique = false, updatable = true, insertable = true, nullable = false, length = 100, scale = 0, precision = 0)
-    @Basic
     private String name;
-    
-    @Column(name = "company_name", table = "partner", unique = false, updatable = true, insertable = true, nullable = true, length = 100, scale = 0, precision = 0)
-    @Basic
     private String companyName;
-    
-    @Column(name = "email", table = "partner", unique = false, updatable = true, insertable = true, nullable = true, length = 100, scale = 0, precision = 0)
-    @Basic
     private String email;
-    
-    @Column(name = "website", table = "partner", unique = false, updatable = true, insertable = true, nullable = true, length = 100, scale = 0, precision = 0)
-    @Basic
     private String website;
-     
-    @Column(name = "phone", table = "partner", unique = false, updatable = true, insertable = true, nullable = true, length = 100, scale = 0, precision = 0)
-    @Basic
     private String phone;
-    
-    @Column(name = "phone_2", table = "partner", unique = false, updatable = true, insertable = true, nullable = true, length = 100, scale = 0, precision = 0)
-    @Basic
     private String phone2;
-    
-    @Column(name = "partner_type", table = "partner", unique = false, updatable = true, insertable = true, nullable = true, length = 100, scale = 0, precision = 0)
-    @Basic
     private String partnerType;
-    
-    @Column(name = "address", table = "partner", unique = false, updatable = true, insertable = true, nullable = true, length = 255, scale = 0, precision = 0)
-    @Basic
     private String address;
-
-    @Column(name = "avatar_path", table = "partner", unique = false, updatable = true, insertable = true, nullable = true, length = 65535, scale = 0, precision = 0)
-    @Lob
-    @Basic
-    private String avatarPath;
-    
-    @Transient
-    private boolean avatarPathChanged = false;
-
-    @Column(name = "id_partner", table = "partner", unique = false, updatable = true, insertable = true, nullable = false, length = 255, scale = 0, precision = 0)
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String avatarPath;    
     private Long idPartner;
-
-    
-    @Column(name = "approval", table = "partner", unique = false, updatable = true, insertable = true, nullable = false, length = 255, scale = 0, precision = 0)
-    @Basic
     private boolean approval;
 
     public Partner() {
@@ -115,16 +59,6 @@ public class Partner implements Serializable {
 
     public void setApproval(boolean approval) {
         this.approval = approval;
-    }
-
-    
-
-    public boolean isAvatarPathChanged() {
-        return avatarPathChanged;
-    }
-
-    public void setAvatarPathChanged(boolean avatarPathChanged) {
-        this.avatarPathChanged = avatarPathChanged;
     }
 
     public String getEmail() {

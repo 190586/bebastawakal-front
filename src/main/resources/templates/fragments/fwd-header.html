@@ -1,12 +1,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:fragment="header-css">
+    <!-- favicon -->
+    <link rel="shortcut icon" th:href="@{/img/favicon.ico}" type="image/x-icon" />
+
     <title>Bebas Tawakal</title>
      <!-- Bootstrap -->
-     <link rel="stylesheet" th:href="@{/css/vendor.min.css}" />
-     <link th:href="@{/css/plugins.min.css}" rel="stylesheet"/>
-     <link th:href="@{/css/main.css}" rel="stylesheet"/>
-     <link th:href="@{/css/pages/homepage.css}" rel="stylesheet"/>
+     <link rel="stylesheet" th:href="@{css/vendor.min.css}" />
+     <link th:href="@{css/plugins.min.css}" rel="stylesheet"/>
+     <link th:href="@{css/main.css}" rel="stylesheet"/>
+     <link th:href="@{css/pages/homepage.css}" rel="stylesheet"/>
+     <script src='https://www.google.com/recaptcha/api.js'></script>
     </div>
 </head>
 <body>
