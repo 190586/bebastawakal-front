@@ -9,13 +9,13 @@ var Homepage = function() {
 			if(pathname.indexOf('/partner') > 0) {
 				this.loadPartner();
 			} else {
-				this.loadTopMenu();
 				this.loadHomeSlider();
 				this.loadPartnerSection();
 				this.loadStepSection();
 				this.loadPackageSection();
 				this.loadDonasiSection();
 			}
+			this.loadTopMenu();
 			this.loadFooterFirstSection();
 			this.loadFooterSecondSection();
 			this.loadFooterActionSection();
@@ -74,13 +74,13 @@ var Homepage = function() {
 				$.each(data.RESULTS, function(key, val) {
 					header = val.title;
 					if(val.shortDescription && !partial) {
-						section += '<div class="col-xs-12 margin-bottom20"><div class="row no-margin"><div class="col-xs-6 no-padding"><div class="img-cont">'+ (val.dataHref ? hrefStart : '') +'<div class="text-cont '+ (val.dataHref ? 'type2' : '') +'">'+ val.title +'</div><img src="'+ val.imagePath +'" alt=""/></div>'+ (val.dataHref ? hrefEnd : '') +'</div>';
+						section += '<div class="col-xs-12 margin-bottom20"><div class="row no-margin"><div class="col-xs-6 no-padding"><div class="img-cont">'+ (val.dataHref ? hrefStart : '') +'<div class="text-cont '+ (val.dataHref ? 'type2' : '') +'">'+ val.shortDescription +'</div><img src="'+ val.imagePath +'" alt=""/></div>'+ (val.dataHref ? hrefEnd : '') +'</div>';
 						partial = true;
 					} else if(val.shortDescription && partial) {
-						section += '<div class="col-xs-6 no-padding"><div class="img-cont">'+ (val.dataHref ? hrefStart : '') +'<div class="text-cont '+ (val.dataHref ? 'type2' : '') +'">'+ val.title +'</div><img src="'+ val.imagePath +'" alt=""/></div></div>'+ (val.dataHref ? hrefEnd : '') +'</div></div>';
+						section += '<div class="col-xs-6 no-padding"><div class="img-cont">'+ (val.dataHref ? hrefStart : '') +'<div class="text-cont '+ (val.dataHref ? 'type2' : '') +'">'+ val.shortDescription +'</div><img src="'+ val.imagePath +'" alt=""/></div></div>'+ (val.dataHref ? hrefEnd : '') +'</div></div>';
 						partial = false;
 					} else {
-						section += '<div class="col-xs-12 margin-bottom20"><div class="img-cont">'+ (val.dataHref ? hrefStart : '') +'<div class="text-cont '+ (val.dataHref ? 'type2' : '') +'">'+ val.title +'</div><img src="'+ val.imagePath +'" alt=""/></div>'+ (val.dataHref ? hrefEnd : '') +'</div>';
+						section += '<div class="col-xs-12 margin-bottom20"><div class="img-cont">'+ (val.dataHref ? hrefStart : '') +'<div class="text-cont '+ (val.dataHref ? 'type2' : '') +'">'+ val.description +'</div><img src="'+ val.imagePath +'" alt=""/></div>'+ (val.dataHref ? hrefEnd : '') +'</div>';
 					}
 				});
 				$('#step-section-points-header').html(header);
@@ -98,12 +98,12 @@ var Homepage = function() {
 			$.getJSON('home/list-menus/PACKAGE-SECTION', function(data) {
 				var i = 1;
 				$.each(data.RESULTS, function(key, val) {
-					if(val.title == 'Paket Berkah') {
+					if(val.title == 'Paket Barakah') {
 						if(initBerkah) {
 							firstPackageElm.append('<div class="title bg-orange">'+ val.title +'</div>');
 							initBerkah = false;
 						}
-						firstPackageContent += '<div class="content-list"><div class="number">Berkah <span>'+ val.orders +'</span></div><div class="right">'+ val.description +'</div></div>';
+						firstPackageContent += '<div class="content-list"><div class="number">Barakah <span>'+ val.orders +'</span></div><div class="right">'+ val.description +'</div></div>';
 					} else {
 						if(initHaji) {
 							secondPackageElm.append('<div class="title bg-tosca">'+ val.title +'</div>');
@@ -122,7 +122,7 @@ var Homepage = function() {
 				firstPackageContent += '</div>';
 				firstPackageElm.append(firstPackageContent);
 				secondPackageContent += '</div></div>';
-				secondPackageTextContent += '</ul></div></div>';
+				secondPackageTextContent += '</ul><p>*Standar paket haji dari partner travel haji kami</p></div></div>';
 				secondPackageElm.append(secondPackageContent + secondPackageTextContent);
 			});
 		},
@@ -325,8 +325,39 @@ var Homepage = function() {
 				}
 			}
 		},
+		floatingButton : function() {
+			var pathname = window.location.pathname;
+			if(pathname.indexOf('/partner') > 0) {
+				var topoff=$('#site-container').offset() ? $('#site-container').offset().top : 0;
+				var butt=$('#add-partner-button');
+				if($(window).scrollTop()<=20) {
+					if(!butt.hasClass('is-absolute')) {
+						butt.addClass('is-absolute');
+					}
+				} else {
+					if(butt.hasClass('is-absolute')) {
+						butt.removeClass('is-absolute');
+					}
+				}
+			} else {
+				var l=$('.section-partner').offset() ? $('.section-partner').offset().top : 0;
+				var e=$(window);
+				e.scroll(
+					function(){
+						if(e.scrollTop()>=l)
+							$('.float').removeClass('is-absolute');
+						else
+							$('.float').addClass('is-absolute');
+					}
+				);
+			}
+		}
     }
 }();
 $(document).ready(function() {
 	Homepage.initialize();
+});
+
+$(window).scroll(function() {
+	Homepage.floatingButton();
 });
