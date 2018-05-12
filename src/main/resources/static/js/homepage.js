@@ -13,7 +13,7 @@ var Homepage = function() {
 				this.loadPartnerSection();
 				this.loadStepSection();
 				this.loadPackageSection();
-				this.loadDonasiSection();
+				this.loadDonationSection();
 			}
 			this.loadTopMenu();
 			this.loadFooterFirstSection();
@@ -59,7 +59,17 @@ var Homepage = function() {
 				var mdWidth = Math.ceil(12/data.RESULTS.length);
 				var smWidth = Math.ceil(24/data.RESULTS.length);
 				$.each(data.RESULTS, function(key, val) {
-					$('#section-partner-points-header').html(val.title);
+					var titles = val.title.split(' ');
+					var title1 = '', title2 = '';
+					for(var i=0;i<titles.length;i++) {
+						if(i < titles.length/2) {
+							title1 += titles[i] +' ';
+						} else {
+							title2 += titles[i] +' ';
+						}
+					}
+					title1 = '<span class="font-orange">'+ title1 +'</span>';
+					$('#section-partner-points-header').html(title1 + title2);
 					$('#section-partner-points-body').append('<div class="col-md-'+ mdWidth +' col-sm-'+ smWidth +' col-xs-'+ smWidth +'"><div class="img-cont"><img src="'+ val.imagePath +'" alt="'+ val.shortDescription +'"/></div><div class="text-cont">'+ val.description +'</div></div>');
 				});
 			});
@@ -67,20 +77,24 @@ var Homepage = function() {
 		loadStepSection : function() {
 			$.getJSON('home/list-menus/STEP-SECTION', function(data) {
 				var partial = false;
-				var hrefStart = '<a data-toggle="modal" data-target="#modalform">';
-				var hrefEnd = '</a>';
-				var section = '';
-				var header = '';
+				var hrefStart = '', hrefEnd = '</a>', section = '', header = '';
 				$.each(data.RESULTS, function(key, val) {
 					header = val.title;
+					if(val.url) {
+						if(val.dataHref) {
+							hrefStart = '<a data-toggle="modal" data-target="'+ val.url +'">';
+						} else {
+							hrefStart = '<a href="'+ val.url +'">';
+						}
+					}
 					if(val.shortDescription && !partial) {
-						section += '<div class="col-xs-12 margin-bottom20"><div class="row no-margin"><div class="col-xs-6 no-padding"><div class="img-cont">'+ (val.dataHref ? hrefStart : '') +'<div class="text-cont '+ (val.dataHref ? 'type2' : '') +'">'+ val.shortDescription +'</div><img src="'+ val.imagePath +'" alt=""/></div>'+ (val.dataHref ? hrefEnd : '') +'</div>';
+						section += '<div class="col-xs-12 margin-bottom20"><div class="row no-margin"><div class="col-xs-6 no-padding"><div class="img-cont">'+ (val.url ? hrefStart : '') +'<div class="text-cont">'+ val.shortDescription +'</div><img src="'+ val.imagePath +'" alt=""/></div>'+ (val.url ? hrefEnd : '') +'</div>';
 						partial = true;
 					} else if(val.shortDescription && partial) {
-						section += '<div class="col-xs-6 no-padding"><div class="img-cont">'+ (val.dataHref ? hrefStart : '') +'<div class="text-cont '+ (val.dataHref ? 'type2' : '') +'">'+ val.shortDescription +'</div><img src="'+ val.imagePath +'" alt=""/></div></div>'+ (val.dataHref ? hrefEnd : '') +'</div></div>';
+						section += '<div class="col-xs-6 no-padding"><div class="img-cont">'+ (val.url ? hrefStart : '') +'<div class="text-cont">'+ val.shortDescription +'</div><img src="'+ val.imagePath +'" alt=""/></div></div>'+ (val.url ? hrefEnd : '') +'</div></div>';
 						partial = false;
 					} else {
-						section += '<div class="col-xs-12 margin-bottom20"><div class="img-cont">'+ (val.dataHref ? hrefStart : '') +'<div class="text-cont '+ (val.dataHref ? 'type2' : '') +'">'+ val.description +'</div><img src="'+ val.imagePath +'" alt=""/></div>'+ (val.dataHref ? hrefEnd : '') +'</div>';
+						section += '<div class="col-xs-12 margin-bottom20"><div class="img-cont">'+ (val.url ? hrefStart : '') +'<div class="text-cont">'+ val.description +'</div><img src="'+ val.imagePath +'" alt=""/></div>'+ (val.url ? hrefEnd : '') +'</div>';
 					}
 				});
 				$('#step-section-points-header').html(header);
@@ -88,50 +102,36 @@ var Homepage = function() {
 			});
 		},
 		loadPackageSection : function() {
-			var firstPackageElm = $('#first-package');
-			var firstPackageContent = '<div class="content">';
-			var initBerkah = true;
-			var secondPackageElm = $('#second-package');
-			var secondPackageContent = '<div class="content">';
-			var secondPackageTextContent = '<div class="text-info"><ul>';
-			var initHaji = true;
+			var packageElm = $('#package-section');
+			var packageContent = '<div class="content">';
 			$.getJSON('home/list-menus/PACKAGE-SECTION', function(data) {
 				var i = 1;
 				$.each(data.RESULTS, function(key, val) {
-					if(val.title == 'Paket Barakah') {
-						if(initBerkah) {
-							firstPackageElm.append('<div class="title bg-orange">'+ val.title +'</div>');
-							initBerkah = false;
-						}
-						firstPackageContent += '<div class="content-list"><div class="number">Barakah <span>'+ val.orders +'</span></div><div class="right">'+ val.description +'</div></div>';
-					} else {
-						if(initHaji) {
-							secondPackageElm.append('<div class="title bg-tosca">'+ val.title +'</div>');
-							secondPackageContent += '<div class="orange-box"><div class="row no-margin">';
-							initHaji = false;
-						}
-						if(val.description) {
-							secondPackageContent += i % 2 == 1 ? '<div class="col-sm-4 list"><div class="row no-padding"><div class="col-xs-4 no-padding"><img src="'+ val.imagePath +'" alt=""/></div><div class="col-xs-8 "><div class="text-cont">'+ val.description +'</div></div></div></div>' : '<div class="col-sm-8 list"><div class="row no-padding"><div class="col-sm-2 col-xs-4 no-padding"><img src="'+ val.imagePath +'" alt=""/></div><div class="col-sm-10 col-xs-8 no-padding"><div class="text-cont type2">'+ val.description +'</div></div></div></div>';
-							i++;
-						}
-						if(val.shortDescription) {
-							secondPackageTextContent += '<li>'+ val.shortDescription +'</li>';
-						}
+					if(i == 1) {
+						packageElm.append('<div class="title bg-orange">'+ val.title +'</div>');
 					}
+					packageContent += '<div class="content-list"><div class="number">Barakah <span>'+ val.orders +'</span></div><div class="right">'+ val.description +'</div></div>';				
+					i++;
 				});
-				firstPackageContent += '</div>';
-				firstPackageElm.append(firstPackageContent);
-				secondPackageContent += '</div></div>';
-				secondPackageTextContent += '</ul><p>*Standar paket haji dari partner travel haji kami</p></div></div>';
-				secondPackageElm.append(secondPackageContent + secondPackageTextContent);
+				packageContent += '</div>';
+				packageElm.append(packageContent);
 			});
 		},
-		loadDonasiSection : function() {
-			$.getJSON('home/list-menus/DONASI-SECTION', function(data) {
+		loadDonationSection : function() {
+			var donationElm = $('#donation-section');
+			var donationContent = '<div class="content">';
+			$.getJSON('home/list-menus/DONATION-SECTION', function(data) {
+				var i = 1;
 				$.each(data.RESULTS, function(key, val) {
-					$('#section-donasi-header').html(val.title);
-					$('#section-donasi-body').append('<div class="row border-box bg-blue"><div class="col-sm-4 left"><div class="img-cont"><img src="'+ val.imagePath +'" alt=""/></div></div><div class="col-sm-8"><p>'+ val.description +'</p></div></div>');
+					if(i == 1) {
+						donationElm.append('<div class="title bg-tosca">'+ val.title +'</div>');
+					}
+					donationContent += '<div class="logo-box text-center margin-bottom50"><div class="img-cont for__dompetduafa"><img src="'+ val.imagePath +'" alt=""></div></div>';
+					donationContent += '<div class="orange-box"><div class="text-box"><p>'+ val.description +'</p></div></div>';
+					i++;
 				});
+				donationContent += '</div>';
+				donationElm.append(donationContent);
 			});
 		},
 		loadFooterFirstSection : function() {

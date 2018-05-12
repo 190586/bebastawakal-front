@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>bebas-tawakal</groupId>
-    <artifactId>bebastawakal</artifactId>
+    <groupId>bebas-tawakkal</groupId>
+    <artifactId>bebastawakkal</artifactId>
     <packaging>war</packaging>
-    <name>Bebas Tawakal</name>
-    <description>FWD Bebas Tawakal</description>
-    <url>https://bebastawakal.fwd.co.id</url>
+    <name>Bebas Tawakkal</name>
+    <description>FWD Bebas Tawakkal</description>
+    <url>https://bebastawakkal.fwd.co.id</url>
     <version>1.0</version>
 
     <parent>
