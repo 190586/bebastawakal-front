@@ -6,7 +6,7 @@ var Homepage = function() {
 		initialize : function() {
 			var _this = this;
 			var pathname = window.location.pathname;
-			if(pathname.indexOf('/partner') > 0) {
+			if(pathname.indexOf('/partner') >= 0) {
 				this.loadPartner();
 			} else {
 				this.loadHomeSlider();
@@ -21,7 +21,7 @@ var Homepage = function() {
 			this.loadFooterActionSection();
 			this.loadFooterIdentitySection();
 			$('#register_form').submit(function() {
-				if(pathname.indexOf('/partner') > 0) {
+				if(pathname.indexOf('/partner') >= 0) {
 					_this.submitPartner(this);
 				} else {
 					_this.submitCustomer(this);
@@ -57,7 +57,7 @@ var Homepage = function() {
 		loadPartnerSection : function() {
 			$.getJSON('home/list-menus/PARTNER-SECTION', function(data) {
 				var mdWidth = Math.ceil(12/data.RESULTS.length);
-				var smWidth = Math.ceil(24/data.RESULTS.length);
+				var smWidth = Math.ceil(12/data.RESULTS.length);
 				$.each(data.RESULTS, function(key, val) {
 					var titles = val.title.split(' ');
 					var title1 = '', title2 = '';
@@ -207,6 +207,8 @@ var Homepage = function() {
 			if(data.name && data.phone && data.email && grecaptcha.getResponse()) {
 				data = JSON.stringify(data);
 				var saving = function() {
+					$('#submit_form').hide();
+					$('#form_loader').show();
 					$.ajax({
 						'dataType' : 'json',
 						'contentType' : 'application/json',
@@ -214,6 +216,8 @@ var Homepage = function() {
 						'url' : 'home/add-customer?g-recaptcha-response='+ captcha +'&_csrf='+ csrf,
 						'data' : data,
 						'success' : function(data) {
+							$('#submit_form').show();
+							$('#form_loader').hide();
 							$('#modalthanks').modal('show');
 							$('#modalform').modal('hide');
 						},
@@ -223,11 +227,7 @@ var Homepage = function() {
 						}
 					});
 				}
-				$('#submit_form').hide();
-				$('#form_loader').show();
 				saving();
-				$('#submit_form').show();
-				$('#form_loader').hide();
 			} else {
 				if(!data.name) {
 					$('span.help-block.form-error.name-error').html('Nama Harus Dimasukkan');
@@ -278,6 +278,8 @@ var Homepage = function() {
 			if(data.name && data.companyName && data.phone && data.email && grecaptcha.getResponse()) {
 				data = JSON.stringify(data);
 				var saving = function() {
+					$('#submit_form').hide();
+					$('#form_loader').show();
 					$.ajax({
 						'dataType' : 'json',
 						'contentType' : 'application/json',
@@ -285,20 +287,20 @@ var Homepage = function() {
 						'url' : 'home/add-partner?g-recaptcha-response='+ captcha +'&_csrf='+ csrf,
 						'data' : data,
 						'success' : function(data) {
+							$('#submit_form').show();
+							$('#form_loader').hide();
 							$('#modalpartnerthanks').modal('show');
 							$('#modalpartnerform').modal('hide');
 						},
 						'error' : function(data) {
+							$('#submit_form').show();
+							$('#form_loader').hide();
 							$('#modalfailed').modal('show');
 							$('#modalpartnerform').modal('hide');
 						}
 					});
 				}
-				$('#submit_form').hide();
-				$('#form_loader').show();
 				saving();
-				$('#submit_form').show();
-				$('#form_loader').hide();
 			} else {
 				if(!data.name) {
 					$('span.help-block.form-error.name-error').html('Nama Harus Dimasukkan');
@@ -327,7 +329,7 @@ var Homepage = function() {
 		},
 		floatingButton : function() {
 			var pathname = window.location.pathname;
-			if(pathname.indexOf('/partner') > 0) {
+			if(pathname.indexOf('/partner') >= 0) {
 				var topoff=$('#site-container').offset() ? $('#site-container').offset().top : 0;
 				var butt=$('#add-partner-button');
 				if($(window).scrollTop()<=20) {
