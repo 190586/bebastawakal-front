@@ -4,9 +4,9 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import sun.misc.BASE64Decoder;
+import javax.xml.bind.DatatypeConverter;
 
-public class Utils {
+public class ImageUtil {
 	public static String UPLOAD_IMAGE_TYPE = "png";
 	//public static String PATH_UPLOAD = GlobalValue.PATH_IMAGE; //comment dl
 	
@@ -30,8 +30,7 @@ public class Utils {
 		BufferedImage image = null;
 		byte[] imageByte;
 		try {
-			BASE64Decoder decoder = new BASE64Decoder();
-			imageByte = decoder.decodeBuffer(imageString);
+			imageByte = DatatypeConverter.parseBase64Binary(imageString);
 			ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
 			image = ImageIO.read(bis);
 			bis.close();

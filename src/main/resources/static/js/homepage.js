@@ -88,13 +88,13 @@ var Homepage = function() {
 						}
 					}
 					if(val.shortDescription && !partial) {
-						section += '<div class="col-xs-12 margin-bottom20"><div class="row no-margin"><div class="col-xs-6 no-padding"><div class="img-cont">'+ (val.url ? hrefStart : '') +'<div class="text-cont">'+ val.shortDescription +'</div><img src="'+ val.imagePath +'" alt=""/></div>'+ (val.url ? hrefEnd : '') +'</div>';
+						section += '<div class="col-xs-12 margin-bottom20 no-padding"><div class="row no-margin"><div class="col-xs-6 no-padding"><div class="img-cont"><div class="text-cont for__firststep">'+ (val.url ? hrefStart : '') + val.shortDescription + (val.url ? hrefEnd : '') +'</div><img src="'+ val.imagePath +'" alt=""/></div></div>';
 						partial = true;
 					} else if(val.shortDescription && partial) {
-						section += '<div class="col-xs-6 no-padding"><div class="img-cont">'+ (val.url ? hrefStart : '') +'<div class="text-cont">'+ val.shortDescription +'</div><img src="'+ val.imagePath +'" alt=""/></div></div>'+ (val.url ? hrefEnd : '') +'</div></div>';
+						section += '<div class="col-xs-6 no-padding"><div class="img-cont"><div class="text-cont for__firststep">'+ (val.url ? hrefStart : '') + val.shortDescription + (val.url ? hrefEnd : '') +'</div><img src="'+ val.imagePath +'" alt=""/></div></div></div></div>';
 						partial = false;
 					} else {
-						section += '<div class="col-xs-12 margin-bottom20"><div class="img-cont">'+ (val.url ? hrefStart : '') +'<div class="text-cont">'+ val.description +'</div><img src="'+ val.imagePath +'" alt=""/></div>'+ (val.url ? hrefEnd : '') +'</div>';
+						section += '<div class="col-xs-12 margin-bottom20 no-padding"><div class="row no-margin"><div class="col-xs-12 no-padding"><div class="img-cont"><div class="text-cont">'+ (val.url ? hrefStart : '') + val.description + (val.url ? hrefEnd : '') +'</div><img src="'+ val.imagePath +'" alt=""/></div></div></div></div>';
 					}
 				});
 				$('#step-section-points-header').html(header);
@@ -204,7 +204,8 @@ var Homepage = function() {
 			var data = {};
 			var captcha = '', csrf = '';
 			$(form).serializeArray().map(function(x){if(x.name=='g-recaptcha-response'){captcha=x.value;}else if(x.name=='_csrf'){csrf=x.value;}else{data[x.name] = x.value;}});
-			if(data.name && data.phone && data.email && grecaptcha.getResponse()) {
+			if(data.name && data.phone && data.email && data.term && grecaptcha.getResponse()) {
+				delete data.term;
 				data = JSON.stringify(data);
 				var saving = function() {
 					$('#submit_form').hide();
@@ -244,18 +245,26 @@ var Homepage = function() {
 				} else {
 					$('span.help-block.form-error.email-error').html('');
 				}
+				if(!data.term) {
+					$('span.help-block.form-error.term-error').html('Anda harus menyetujui persyaratan di atas');
+				} else {
+					$('span.help-block.form-error.term-error').html('');
+				}
 				if(grecaptcha.getResponse()) {
 					$('span.help-block.form-error.captcha-error').html('Captcha Harus Dipilih');
 				}
 			}
 		},
 		loadPartner : function() {
+			var i = 1;
+			var container = $('#site-container');
+			var containerBody = '';
 			$.getJSON('home/list-partner', function(data) {
 				$.each(data.RESULTS, function(key, val) {
-					$('#avatar-path').append('<img src="'+ val.avatarPath +'" alt="" />');
-					$('#content').html(val.content);
-					$('#address').html(val.address);
+					containerBody += '<div class="partner">'+ (i==1 ? '<h2 id="title" class="text-center font-bold">Partner Travel Haji Kami</h2>' : '') +'<div class="partner-bundle '+ (i%2==1? 'bg-blue' : 'bg-orange') +'"><div class="row no-margin"><div class="col-md-8 margin-bottom20">'+ val.content +'</div><div class="col-md-4"><div class="partner-info"><div class="img-cont"><img src="'+ val.avatarPath +'" alt="" /></div><div class="text-info">'+ val.address +'</div></div></div></div></div></div>';
+					i++;
 				});
+				container.prepend(containerBody);
 			});
 		},
 		initPartner : function() {
